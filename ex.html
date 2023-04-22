@@ -12,17 +12,64 @@
     crossorigin="anonymous"></script>
   <!-- tesseract -->
   <script src="https://unpkg.com/tesseract.js@v3.0.3/dist/tesseract.min.js"></script>
-  <!-- my css & script -->
+  <!-- caman -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/camanjs/4.1.2/caman.full.min.js"></script>
+  <!-- my css -->
+  <link href="./ex.css" rel="stylesheet" type="text/css">
 
   <title>PrskEx</title>
-
-
 </head>
 
 <body>
-  <footer class="container-fluid footer">
-    <div>a</div>
-  </footer>
+  <div class="container-fluid">
+    <div class="d-flex justify-content-center">
+      <label>
+        <!-- 見せる部分-->
+        <img id="preview" class="square" src="./image.svg" height="30em">
+        <!-- 隠す部分-->
+        <input type="file" name="file-upload" id="file-upload" onchange="recognize()">
+      </label>
+    </div>
+  </div>
+
+  <div class="container-fluid">
+    <p id="progress"></p>
+  </div>
+
+  <div class="container-fluid" id="test"></div>
+
+  <div class="container">
+    <table class="table">
+      <tbody>
+        <tr>
+          <th>PERFECT</th>
+          <td>-</td>
+        </tr>
+        <tr>
+          <th>GREAT</th>
+          <td>-</td>
+        </tr>
+        <tr>
+          <th>GOOD</th>
+          <td>-</td>
+        </tr>
+        <tr>
+          <th>BAD</th>
+          <td>-</td>
+        </tr>
+        <tr>
+          <th>MISS</th>
+          <td>-</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+
+
+  <!-- my script -->
+  <script src="./ex.js"></script>
 </body>
 
 </html>
