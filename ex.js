@@ -112,14 +112,13 @@ async function setPreview(url) {
   preview.style.border = '';
   preview.style.width = '';
 
-  /*
+  
   img = new Image();
   img.onload = function(){
     console.log('w ' + img.width);
     console.log('h ' + img.height);
   };
   img.src = url;
-  */
 }
 
 function resetTable() {
