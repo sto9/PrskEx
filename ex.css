@@ -1,11 +1,16 @@
 @charset "utf-8";
 
+body {
+  font-size: 1.5em;
+  padding: 0px, 100px;
+}
+
 .container {
-  padding: 2em;
+  margin-top: 2em;
 }
 
 .container-fluid {
-  padding: 2em;
+  margin-top: 2em;
 }
 
 label>input {
@@ -14,11 +19,26 @@ label>input {
 
 .square {
   height: 30em;
-  border: 1px solid black;
-  background: #D0D0D0;
+  background: #86cecb;
+  cursor: pointer;
+  position: relative;
 }
 
 .square>img {
   margin: auto;
   display: block;
+}
+
+.on-square {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+td {
+  text-align: right;
+}
+
+#ex-score {
+  font-size: 2.5em
 }

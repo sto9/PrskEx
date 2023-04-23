@@ -25,7 +25,8 @@
     <div class="d-flex justify-content-center">
       <label>
         <!-- 見せる部分-->
-        <img id="preview" class="square" src="./image.svg" height="30em">
+        <img id="preview" class="square" style="width: 40em; border: 5px solid #e12885;">
+        <img src="./image.svg" class="on-square" style="padding: auto">
         <!-- 隠す部分-->
         <input type="file" name="file-upload" id="file-upload" onchange="recognize()">
       </label>
@@ -33,37 +34,49 @@
   </div>
 
   <div class="container-fluid">
-    <p id="progress"></p>
+    <div class="d-flex justify-content-center">
+      <p id="progress">upload result</p>
+    </div>
   </div>
 
-  <div class="container-fluid" id="test"></div>
+  <!-- 
+    <div class="container-fluid" id="test"></div>
+  -->
+
+  <div class="container-fluid">
+    <div style="height:3em">
+      <p id="ex-score"></p>
+    </div>
+  </div>
 
   <div class="container">
-    <table class="table">
-      <tbody>
+    <table class="table table-hover table-striped">
+      <tbody id="table-result">
         <tr>
           <th>PERFECT</th>
-          <td>-</td>
+          <td class="text-center">-</td>
         </tr>
         <tr>
           <th>GREAT</th>
-          <td>-</td>
+          <td class="text-center">-</td>
         </tr>
         <tr>
           <th>GOOD</th>
-          <td>-</td>
+          <td class="text-center">-</td>
         </tr>
         <tr>
           <th>BAD</th>
-          <td>-</td>
+          <td class="text-center">-</td>
         </tr>
         <tr>
           <th>MISS</th>
-          <td>-</td>
+          <td class="text-center">-</td>
         </tr>
       </tbody>
     </table>
   </div>
+
+
 
 
 

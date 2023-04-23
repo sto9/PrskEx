@@ -30,7 +30,7 @@ async function clipImage(img_monotone) {
     0, 0,
     canvas.width, canvas.height
   );
-  document.getElementById("test").appendChild(canvas);
+  // document.getElementById("test").appendChild(canvas);
   return canvas.toDataURL();
 }
 
@@ -85,12 +85,38 @@ function calcExScore(scores) {
   return sum;
 }
 
-function setPreview(url) {
+async function setPreview(url) {
   let preview = document.getElementById("preview");
   preview.src = url;
+  preview.style.border = '';
+  preview.style.width = '';
+}
+
+function resetTable() {
+  let tr_elements = document.getElementById("table-result").children;
+  for (let i = 0; i < tr_elements.length; i++) {
+    let td = tr_elements[i].children[1];
+    td.innerText = "-";
+    td.classList.replace("text-right", "text-center")
+  }
+  let ex_element = document.getElementById("ex-score");
+  ex_element.innerText = "";
+}
+
+function setTable(scores) {
+  let tr_elements = document.getElementById("table-result").children;
+  for (let i = 0; i < tr_elements.length; i++) {
+    let td = tr_elements[i].children[1];
+    td.innerText = scores[i];
+    td.classList.replace("text-center", "text-right")
+  }
+  const exscore = calcExScore(scores);
+  let ex_element = document.getElementById("ex-score");
+  ex_element.innerText = "EX-SCORE: " + exscore;
 }
 
 async function recognize() {
+  resetTable();
   const fileInput = document.getElementById('file-upload');
   const pic = fileInput.files[0];
   let url = window.URL.createObjectURL(pic);
@@ -107,8 +133,9 @@ async function recognize() {
   }
   if (scores.length == 0) {
     // エラー処理
+    document.getElementById('progress').textContent = "Error";
     return;
   }
-  let exscore = calcExScore(scores);
-  console.log(exscore);
+  setTable(scores);
+  document.getElementById('progress').textContent = "finished";
 }
