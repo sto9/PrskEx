@@ -64,6 +64,7 @@ async function getScoreArray(img) {
     psm: 6,
     // tessedit_char_blacklist: 'OI',
     logger: function (m) {
+      console.log(m.status);
       document.getElementById('progress').textContent = m.status;
     }
   });
