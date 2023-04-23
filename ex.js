@@ -14,7 +14,7 @@ async function getMonotoneImage(url, clip_param) {
     this.contrast(100); // ここも改善の余地あり
     this.render();
   });
-  await sleep(200);
+  await sleep(1000); // やばすぎ そのうち直す
   let img = document.createElement("img");
   img.src = canvas.toDataURL();
   return img;
@@ -60,6 +60,7 @@ async function getScoreArray(img) {
   //await worker.loadLanguage('eng');
   //await worker.initialize('eng');
 
+  console.log(img);
   const data = await Tesseract.recognize(img, 'eng', {
     psm: 6,
     // tessedit_char_blacklist: 'OI',
