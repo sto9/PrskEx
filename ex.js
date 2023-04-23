@@ -31,7 +31,7 @@ async function clipImage(img_monotone) {
     0, 0,
     canvas.width, canvas.height
   );
-  await sleep(200); // そのうち直す2
+  await sleep(1000); // そのうち直す2
   // document.getElementById("test").appendChild(canvas);
   console.log(canvas);
   return canvas.toDataURL();
