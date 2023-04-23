@@ -38,6 +38,7 @@ async function clipImage(img_monotone) {
 async function getScoreArrayStrict(words) {
   let numbers = []; // 内訳
   for (let i in words) {
+
     if (/^\d{4}$/.test(words[i]) && words[i][0] <= '3')
       numbers.push(Number(words[i]));
   }
@@ -54,16 +55,21 @@ async function getScoreArrayEase(words) {
   }
   return numbers;
 }
+// 画像認識
 async function getScoreArray(img) {
   const data = await Tesseract.recognize(img, 'eng', {
     psm: 6,
-    tessedit_char_blacklist: 'OI',
+    // tessedit_char_blacklist: 'OI',
     logger: function (m) {
-      console.log(m.status);
       document.getElementById('progress').textContent = m.status;
     }
   });
   let words = data.data.text.split(/[ \n]+/);
+  console.log(words);
+  for (let i = 0; i < words.length; i++) {
+    words[i] = words[i].replace(/O/g, '0');
+  }
+  console.log(words);
 
   let numbers = await getScoreArrayStrict(words);
   if (numbers.length == 6 && numbers[5] == "1111")
