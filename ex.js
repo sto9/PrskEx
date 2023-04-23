@@ -14,9 +14,10 @@ async function getMonotoneImage(url, clip_param) {
     this.contrast(100); // ここも改善の余地あり
     this.render();
   });
-  await sleep(1000); // やばすぎ そのうち直す
+  await sleep(200); // やばすぎ そのうち直す
   let img = document.createElement("img");
   img.src = canvas.toDataURL();
+  console.log(img);
   return img;
 }
 
@@ -31,6 +32,7 @@ async function clipImage(img_monotone) {
     canvas.width, canvas.height
   );
   // document.getElementById("test").appendChild(canvas);
+  console.log(canvas);
   return canvas.toDataURL();
 }
 
