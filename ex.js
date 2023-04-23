@@ -10,12 +10,12 @@ async function getMonotoneImage(url, clip_param) {
     this.render();
   });
   await sleep(200); // やばすぎ そのうち直す
-  console.log("img_monotone(before):" + canvas);
+  console.log("img_monotone(before) w:" + canvas.width);
   return canvas;
 }
 
 async function clipImage(img_monotone) {
-  console.log("img_monotone: " + img_monotone);
+  console.log("img_monotone w: " + img_monotone.width);
   console.log(img_monotone.width);
   let canvas = document.createElement("canvas");
   let ctx = canvas.getContext("2d");
