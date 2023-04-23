@@ -1,8 +1,3 @@
-const getResult = (text) => {
-  console.log(text);
-
-}
-
 const sleep = waitTime => new Promise(resolve => setTimeout(resolve, waitTime));
 
 async function getMonotoneImage(url, clip_param) {
@@ -15,25 +10,23 @@ async function getMonotoneImage(url, clip_param) {
     this.render();
   });
   await sleep(200); // やばすぎ そのうち直す
-  let img = document.createElement("img");
-  img.src = canvas.toDataURL();
-  console.log(img);
-  return img;
+  console.log("img_monotone(before):" + canvas);
+  return canvas;
 }
 
 async function clipImage(img_monotone) {
+  console.log("img_monotone: " + img_monotone);
+  console.log(img_monotone.width);
   let canvas = document.createElement("canvas");
   let ctx = canvas.getContext("2d");
   canvas.width = img_monotone.width / 3;
   canvas.height = img_monotone.height * 3 / 8;
-  console.log("img_monotone: " + img_monotone);
-  console.log(img_monotone.width);
   ctx.drawImage(img_monotone, img_monotone.width / 3, img_monotone.height / 2,
     canvas.width, canvas.height,
     0, 0,
     canvas.width, canvas.height
   );
-  await sleep(1000); // そのうち直す2
+  // await sleep(200); // そのうち直す2
   // document.getElementById("test").appendChild(canvas);
   console.log(canvas);
   return canvas.toDataURL();
