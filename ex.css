@@ -18,7 +18,7 @@ label>input {
 }
 
 .square {
-  height: 6em;
+  height: 12em;
   background: #86cecb;
   cursor: pointer;
   position: relative;
