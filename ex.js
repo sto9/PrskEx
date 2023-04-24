@@ -9,14 +9,14 @@ async function getMonotoneImage(url, clip_param) {
     this.contrast(100); // ここも改善の余地あり
     this.render();
   });
-  await sleep(200); // やばすぎ そのうち直す
-  console.log("img_monotone(before) w:" + canvas.width);
+  await sleep(200); // そのうち直す
+  // console.log("img_monotone(before) w:" + canvas.width);
   return canvas;
 }
 
 async function clipImage(img_monotone) {
-  console.log("img_monotone w: " + img_monotone.width);
-  console.log(img_monotone.width);
+  // console.log("img_monotone w: " + img_monotone.width);
+  // console.log(img_monotone.width);
   let canvas = document.createElement("canvas");
   let ctx = canvas.getContext("2d");
   canvas.width = img_monotone.width / 3;
@@ -152,7 +152,7 @@ async function recognize() {
   const CLIP_PARAM = [0, 50, 60, 52, 54, 56, 58];
   let scores;
   for (let ci = 0; ci < CLIP_PARAM.length; ci++) {
-    console.log(CLIP_PARAM[ci]);
+    // console.log(CLIP_PARAM[ci]);
     let img_monotone = await getMonotoneImage(url, CLIP_PARAM[ci]);
     let img_rec = await clipImage(img_monotone);
     scores = await getScoreArray(img_rec);
