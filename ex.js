@@ -28,7 +28,7 @@ async function clipImage(img_monotone) {
   );
   // await sleep(200); // そのうち直す2
   // document.getElementById("test").appendChild(canvas);
-  console.log(canvas);
+  // console.log(canvas);
   return canvas.toDataURL();
 }
 
@@ -58,7 +58,7 @@ async function getScoreArray(img) {
   //await worker.loadLanguage('eng');
   //await worker.initialize('eng');
 
-  console.log(img);
+  // console.log(img);
   const data = await Tesseract.recognize(img, 'eng', {
     psm: 6,
     // tessedit_char_blacklist: 'OI',
@@ -79,11 +79,9 @@ async function getScoreArray(img) {
   });
   */
   let words = data.data.text.split(/[ \n]+/);
-  console.log(words);
   for (let i = 0; i < words.length; i++) {
     words[i] = words[i].replace(/O/g, '0');
   }
-  console.log(words);
 
   let numbers = await getScoreArrayStrict(words);
   if (numbers.length == 6 && numbers[5] == "1111")
@@ -113,10 +111,12 @@ async function setPreview(url) {
 
   
   img = new Image();
+  /*
   img.onload = function(){
     console.log('w ' + img.width);
     console.log('h ' + img.height);
   };
+  */
   img.src = url;
 }
 
@@ -156,7 +156,7 @@ async function recognize() {
     let img_monotone = await getMonotoneImage(url, CLIP_PARAM[ci]);
     let img_rec = await clipImage(img_monotone);
     scores = await getScoreArray(img_rec);
-    console.log(scores);
+    // console.log(scores);
     if (scores.length == 5) break;
   }
   if (scores.length == 0) {
