@@ -10,13 +10,10 @@ async function getMonotoneImage(url, clip_param) {
     this.render();
   });
   await sleep(200); // そのうち直す
-  // console.log("img_monotone(before) w:" + canvas.width);
   return canvas;
 }
 
 async function clipImage(img_monotone) {
-  // console.log("img_monotone w: " + img_monotone.width);
-  // console.log(img_monotone.width);
   let canvas = document.createElement("canvas");
   let ctx = canvas.getContext("2d");
   canvas.width = img_monotone.width / 3;
@@ -26,9 +23,6 @@ async function clipImage(img_monotone) {
     0, 0,
     canvas.width, canvas.height
   );
-  // await sleep(200); // そのうち直す2
-  // document.getElementById("test").appendChild(canvas);
-  // console.log(canvas);
   return canvas.toDataURL();
 }
 
@@ -55,9 +49,6 @@ async function getScoreArrayEase(words) {
 
 // 画像認識
 async function getScoreArray(img) {
-  //await worker.loadLanguage('eng');
-  //await worker.initialize('eng');
-
   // console.log(img);
   const data = await Tesseract.recognize(img, 'eng', {
     psm: 6,
@@ -67,17 +58,7 @@ async function getScoreArray(img) {
       document.getElementById('progress').textContent = m.status;
     }
   });
-  //await worker.terminate();
 
-  /*
-  const data = await Tesseract.recognize(img, 'eng', {
-    psm: 6,
-    // tessedit_char_blacklist: 'OI',
-    logger: function (m) {
-      document.getElementById('progress').textContent = m.status;
-    }
-  });
-  */
   let words = data.data.text.split(/[ \n]+/);
   for (let i = 0; i < words.length; i++) {
     words[i] = words[i].replace(/O/g, '0');
@@ -108,16 +89,6 @@ async function setPreview(url) {
   preview.src = url;
   preview.style.border = '';
   preview.style.width = '';
-
-  
-  img = new Image();
-  /*
-  img.onload = function(){
-    console.log('w ' + img.width);
-    console.log('h ' + img.height);
-  };
-  */
-  img.src = url;
 }
 
 function resetTable() {
@@ -152,11 +123,9 @@ async function recognize() {
   const CLIP_PARAM = [0, 50, 60, 52, 54, 56, 58];
   let scores;
   for (let ci = 0; ci < CLIP_PARAM.length; ci++) {
-    // console.log(CLIP_PARAM[ci]);
     let img_monotone = await getMonotoneImage(url, CLIP_PARAM[ci]);
     let img_rec = await clipImage(img_monotone);
     scores = await getScoreArray(img_rec);
-    // console.log(scores);
     if (scores.length == 5) break;
   }
   if (scores.length == 0) {
