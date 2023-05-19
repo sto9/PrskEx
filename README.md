@@ -1,4 +1,7 @@
 # README
+
+[PrskEx](https://sto9.github.io/PrskEx/)
+
 ## これは何
 プロセカの EX-SCORE (PERFECT×3 + GREAT×2 + GOOD) を計算します。
 
