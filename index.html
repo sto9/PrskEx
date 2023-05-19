@@ -21,9 +21,19 @@
 </head>
 
 <body>
-  <div class="container" style="height: 12em;">
-    <img class="preview d-block mx-auto" id="preview" height="100%">
+  <div class="container" style="width:100%;" id="img-container">
+    <!-- <img class="preview d-block mx-auto" id="preview"> -->
+    <img class="preview" id="preview">
   </div>
+  <script>
+    let image = document.getElementById('img-container');
+    let width = parseInt(window.getComputedStyle(image).width);
+    console.log(width);
+    let height = String(width * 0.75) + "px";
+    console.log(height);
+    image.style.height = height;
+    console.log(image.style.height);
+  </script>
 
 
   <div class="container" style="height: 1em;">
