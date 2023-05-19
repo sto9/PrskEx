@@ -1,12 +1,12 @@
 const sleep = waitTime => new Promise(resolve => setTimeout(resolve, waitTime));
 
-async function getMonotoneImage(url, clip_param) {
+async function getMonotoneImage(url, param) {
   let canvas = document.createElement("canvas");
   Caman(canvas, url, function () {
-    this.clip(clip_param); // ここを調整 50~60 が良い感じ
+    this.clip(param[0]); // ここを調整 50~60 が良い感じ
     this.greyscale();
     this.invert();
-    this.contrast(100); // ここも改善の余地あり
+    this.contrast(param[1]); // ここも改善の余地あり
     this.render();
   });
   await sleep(200); // そのうち直す
@@ -50,12 +50,12 @@ async function getScoreArrayEase(words) {
 // 画像認識
 async function getScoreArray(img) {
   // console.log(img);
+  document.getElementById('progress').textContent = "Loading...";
   const data = await Tesseract.recognize(img, 'eng', {
     psm: 6,
     // tessedit_char_blacklist: 'OI',
     logger: function (m) {
       // console.log(m.status);
-      document.getElementById('progress').textContent = m.status;
     }
   });
 
@@ -77,41 +77,27 @@ async function getScoreArray(img) {
   return [];
 }
 
-function calcExScore(scores) {
-  let sum = 0;
-  for (let i = 0; i < 3; i++)
-    sum += scores[i] * (3 - i);
-  return sum;
-}
+// TEXT_SUFFIX = ['perfect', 'great', 'good', 'bad', 'miss'];
+TEXT_SUFFIX = ['perfect', 'great', 'good'];
 
-async function setPreview(url) {
-  let preview = document.getElementById("preview");
-  preview.src = url;
-  preview.style.border = '';
-  preview.style.width = '';
-}
-
-function resetTable() {
-  let tr_elements = document.getElementById("table-result").children;
-  for (let i = 0; i < tr_elements.length; i++) {
-    let td = tr_elements[i].children[1];
-    td.innerText = "-";
-    td.classList.replace("text-right", "text-center")
+function resetTable(from_btn = false) {
+  for (let i = 0; i < TEXT_SUFFIX.length; i++) {
+    let id = "text-" + TEXT_SUFFIX[i];
+    let input = document.getElementById(id);
+    input.value = "";
   }
-  let ex_element = document.getElementById("ex-score");
-  ex_element.innerText = "";
+  document.getElementById("ex-score").innerText = "";
+  document.getElementById('progress').textContent = "";
+  document.getElementById("preview").src = "";
+  if (from_btn) document.getElementById('file-upload').value = "";
 }
 
 function setTable(scores) {
-  let tr_elements = document.getElementById("table-result").children;
-  for (let i = 0; i < tr_elements.length; i++) {
-    let td = tr_elements[i].children[1];
-    td.innerText = scores[i];
-    td.classList.replace("text-center", "text-right")
+  for (let i = 0; i < TEXT_SUFFIX.length; i++) {
+    let id = "text-" + TEXT_SUFFIX[i];
+    let input = document.getElementById(id);
+    input.value = scores[i];
   }
-  const exscore = calcExScore(scores);
-  let ex_element = document.getElementById("ex-score");
-  ex_element.innerText = "EX-SCORE: " + exscore;
 }
 
 async function recognize() {
@@ -119,8 +105,10 @@ async function recognize() {
   const fileInput = document.getElementById('file-upload');
   const pic = fileInput.files[0];
   let url = window.URL.createObjectURL(pic);
-  setPreview(url);
-  const CLIP_PARAM = [0, 50, 60, 52, 54, 56, 58];
+  console.log(url);
+  let preview = document.getElementById("preview");
+  preview.src = url;
+  CLIP_PARAM = [[0, 100], [50, 100], [60, 100], [0, 0], [50, 0], [60, 0]];
   let scores;
   for (let ci = 0; ci < CLIP_PARAM.length; ci++) {
     let img_monotone = await getMonotoneImage(url, CLIP_PARAM[ci]);
@@ -130,9 +118,30 @@ async function recognize() {
   }
   if (scores.length == 0) {
     // エラー処理
-    document.getElementById('progress').textContent = "Error";
+    document.getElementById('progress').textContent = "エラー：読み取れませんでした";
     return;
   }
   setTable(scores);
-  document.getElementById('progress').textContent = "finished";
+  document.getElementById('progress').textContent = "";
+}
+
+function calcScore() {
+  let total = 0;
+  for (let i = 0; i < TEXT_SUFFIX.length; i++) {
+    let id = "text-" + TEXT_SUFFIX[i];
+    let score_text = document.getElementById(id).value;
+    let score;
+    if (score_text == "") {
+      score = 0;
+    } else if (isNaN(score_text)) { // エラー
+      let ex_element = document.getElementById("ex-score");
+      ex_element.innerText = "<error>";
+      return;
+    } else {
+      score = Number(score_text);
+    }
+    total += (3 - i) * score;
+  }
+  let ex_element = document.getElementById("ex-score");
+  ex_element.innerText = total;
 }

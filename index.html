@@ -21,67 +21,106 @@
 </head>
 
 <body>
-  <div class="container-fluid">
+  <div class="container" style="height: 12em;">
+    <img class="preview d-block mx-auto" id="preview" height="100%">
+  </div>
+
+
+  <div class="container" style="height: 1em;">
     <div class="d-flex justify-content-center">
-      <label>
-        <!-- 見せる部分-->
-        <img id="preview" class="square" style="width: 16em; border: 3px solid #e12885;">
-        <!-- <img src="./image.svg" class="on-square" style="padding: auto"> -->
-        <!-- 隠す部分-->
+      <p id="progress"></p>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-auto">
         <input type="file" name="file-upload" id="file-upload" accept="image/*" onchange="recognize()">
-      </label>
-    </div>
-  </div>
-
-  <div class="container-fluid">
-    <div class="d-flex justify-content-center">
-      <p id="progress">upload result</p>
-    </div>
-  </div>
-
-  <!-- 
-    <div class="container-fluid" id="test"></div>
-  -->
-
-  <div class="container-fluid">
-    <div class="row" style="height:2em">
-      <div class="col">
-        <p id="ex-score"></p>
       </div>
     </div>
   </div>
 
   <div class="container">
-    <table class="table table-striped">
-      <tbody id="table-result">
-        <tr>
-          <th>PERFECT</th>
-          <td class="text-center">-</td>
-        </tr>
-        <tr>
-          <th>GREAT</th>
-          <td class="text-center">-</td>
-        </tr>
-        <tr>
-          <th>GOOD</th>
-          <td class="text-center">-</td>
-        </tr>
-        <tr>
-          <th>BAD</th>
-          <td class="text-center">-</td>
-        </tr>
-        <tr>
-          <th>MISS</th>
-          <td class="text-center">-</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="row">
+      <font size="2" style="text-align: right;">※0は省略可</font>
+    </div>
+
+    <div class="row">
+      <div class="col-6">
+        <label for="text-perfect">PERFECT</label>
+      </div>
+      <div class="col-6">
+        <input type="text" id="text-perfect" class="form-control" placeholder="0" maxlength="10">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-6">
+        <label for="text-great">GREAT</label>
+      </div>
+      <div class="col-6">
+        <input type="text" id="text-great" class="form-control" placeholder="0" maxlength="10">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-6">
+        <label for="text-good">GOOD</label>
+      </div>
+      <div class="col-6">
+        <input type="text" id="text-good" class="form-control" placeholder="0" maxlength="10">
+      </div>
+    </div>
+
+    <!--
+    <div class="row">
+      <div class="col-6">
+        <label for="text-bad">BAD</label>
+      </div>
+      <div class="col-6">
+        <input type="text" id="text-bad" class="form-control" placeholder="0" maxlength="10">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-6">
+        <label for="text-miss">MISS</label>
+      </div>
+      <div class="col-6">
+        <input type="text" id="text-miss" class="form-control" placeholder="0" maxlength="10">
+      </div>
+    </div>
+  
+  -->
   </div>
 
 
+  <div class="container">
+    <div class="row">
+      <div class="col-8">
+        <p class="ex-score">EX-SCORE</p>
+      </div>
+      <div class="col-4">
+        <p class="ex-score" id="ex-score" style="text-align:right;"></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="text-center">
+      <button type="button" class="btn btn-primary" onclick="calcScore()">計算</button>
+      <button type="button" class="btn btn-danger" onclick="resetTable(true)">リセット</button>
+    </div>
+  </div>
+
+  <div class="container">
+    <font size="2">
+      <a href="https://github.com/sto9/PrskEx">使い方</a>
+    </font>
+  </div>
 
 
-
+  </div>
 
   <!-- my script -->
   <script src="./ex.js"></script>

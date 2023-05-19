@@ -6,39 +6,32 @@ body {
 }
 
 .container {
-  margin-bottom: 0.5em;
+  margin-bottom: 1em;
 }
 
 .container-fluid {
   margin-bottom: 0.5em;
 }
 
-label>input {
-  display: none;
-}
-
 .square {
   height: 12em;
-  background: #86cecb;
-  cursor: pointer;
-  position: relative;
 }
 
 .square>img {
   margin: auto;
   display: block;
-}
-
-.on-square {
-  position: absolute;
-  top: 20px;
-  right: 20px;
+  /* max-width: 100%; */
+  /*height: auto;*/
 }
 
 td {
   text-align: right;
 }
 
-#ex-score {
-  font-size: 1.2em;
+.ex-score {
+  font-size: 1.5em;
+}
+
+input {
+  text-align: right;
 }
