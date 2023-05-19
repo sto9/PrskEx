@@ -9,25 +9,6 @@ body {
   margin-bottom: 1em;
 }
 
-.container-fluid {
-  margin-bottom: 0.5em;
-}
-
-.square {
-  height: 12em;
-}
-
-.square>img {
-  margin: auto;
-  display: block;
-  /* max-width: 100%; */
-  /*height: auto;*/
-}
-
-td {
-  text-align: right;
-}
-
 .ex-score {
   font-size: 1.5em;
 }
