@@ -49,14 +49,10 @@ async function getScoreArrayEase(words) {
 
 // 画像認識
 async function getScoreArray(img) {
-  // console.log(img);
   document.getElementById('progress').textContent = "Loading...";
   const data = await Tesseract.recognize(img, 'eng', {
     psm: 6,
     // tessedit_char_blacklist: 'OI',
-    logger: function (m) {
-      // console.log(m.status);
-    }
   });
 
   let words = data.data.text.split(/[ \n]+/);
@@ -105,7 +101,6 @@ async function recognize() {
   const fileInput = document.getElementById('file-upload');
   const pic = fileInput.files[0];
   let url = window.URL.createObjectURL(pic);
-  console.log(url);
   let preview = document.getElementById("preview");
   preview.src = url;
   CLIP_PARAM = [[0, 100], [50, 100], [60, 100], [0, 0], [50, 0], [60, 0]];
