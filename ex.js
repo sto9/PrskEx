@@ -17,7 +17,7 @@ async function clipImage(img_monotone) {
   let canvas = document.createElement("canvas");
   let ctx = canvas.getContext("2d");
   canvas.width = img_monotone.width / 3;
-  canvas.height = img_monotone.height * 3 / 8;
+  canvas.height = img_monotone.height / 2;
   ctx.drawImage(img_monotone, img_monotone.width / 3, img_monotone.height / 2,
     canvas.width, canvas.height,
     0, 0,
