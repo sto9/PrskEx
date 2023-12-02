@@ -2,14 +2,19 @@ const sleep = waitTime => new Promise(resolve => setTimeout(resolve, waitTime));
 
 async function getMonotoneImage(url, param) {
   let canvas = document.createElement("canvas");
+  let render_done = false;
   Caman(canvas, url, function () {
     this.clip(param[0]); // ここを調整 50~60 が良い感じ
     this.greyscale();
     this.invert();
     this.contrast(param[1]); // ここも改善の余地あり
-    this.render();
+    this.render(function () { render_done = true; });
   });
-  await sleep(500); // そのうち直す
+  let cnt = 0;
+  while (!render_done) {
+    await sleep(100);
+    if (cnt++ > 20) break;
+  }
   return canvas;
 }
 
