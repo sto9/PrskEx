@@ -18,7 +18,7 @@ async function clipImage(img_monotone) {
   let ctx = canvas.getContext("2d");
   canvas.width = img_monotone.width / 3;
   canvas.height = img_monotone.height / 2;
-  ctx.drawImage(img_monotone, img_monotone.width / 3, img_monotone.height / 2,
+  ctx.drawImage(img_monotone, 0, img_monotone.height / 2,
     canvas.width, canvas.height,
     0, 0,
     canvas.width, canvas.height
@@ -103,7 +103,7 @@ async function recognize() {
   let url = window.URL.createObjectURL(pic);
   let preview = document.getElementById("preview");
   preview.src = url;
-  CLIP_PARAM = [[0, 100], [50, 100], [60, 100], [0, 0], [50, 0], [60, 0]];
+  CLIP_PARAM = [[0, 100], [50, 100], [60, 100], [50, 0]];
   let scores;
   for (let ci = 0; ci < CLIP_PARAM.length; ci++) {
     let img_monotone = await getMonotoneImage(url, CLIP_PARAM[ci]);
