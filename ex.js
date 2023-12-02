@@ -16,7 +16,7 @@ async function getMonotoneImage(url, param) {
 async function clipImage(img_monotone) {
   let canvas = document.createElement("canvas");
   let ctx = canvas.getContext("2d");
-  canvas.width = img_monotone.width / 3;
+  canvas.width = img_monotone.width * 3 / 8;
   canvas.height = img_monotone.height / 2;
   ctx.drawImage(img_monotone, 0, img_monotone.height / 2,
     canvas.width, canvas.height,
@@ -54,7 +54,6 @@ async function getScoreArray(img) {
     psm: 6,
     // tessedit_char_blacklist: 'OI',
   });
-
   let words = data.data.text.split(/[ \n]+/);
   for (let i = 0; i < words.length; i++) {
     words[i] = words[i].replace(/O/g, '0');
