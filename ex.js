@@ -9,7 +9,7 @@ async function getMonotoneImage(url, param) {
     this.contrast(param[1]); // ここも改善の余地あり
     this.render();
   });
-  await sleep(200); // そのうち直す
+  await sleep(500); // そのうち直す
   return canvas;
 }
 
