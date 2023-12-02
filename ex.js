@@ -30,7 +30,7 @@ async function clipImage(img_monotone) {
 async function getScoreArrayStrict(words) {
   let numbers = []; // 内訳
   for (let i in words) {
-    if (/^\d{4}$/.test(words[i]) && words[i][0] <= '3')
+    if (/^\d{4}$/.test(words[i]))
       numbers.push(Number(words[i]));
   }
   return numbers;
@@ -41,7 +41,7 @@ async function getScoreArrayEase(words) {
   for (let i in words) {
     // 数字以外消す
     words[i] = words[i].replace(/[^0-9]/g, '');
-    if (words[i].length == 4 && words[i][0] <= '3')
+    if (words[i].length == 4)
       numbers.push(Number(words[i]));
   }
   return numbers;
@@ -60,13 +60,9 @@ async function getScoreArray(img) {
   }
 
   let numbers = await getScoreArrayStrict(words);
-  if (numbers.length == 6 && numbers[5] == "1111")
-    numbers.pop();
   if (numbers.length == 5) return numbers;
 
   numbers = await getScoreArrayEase(words);
-  if (numbers.length == 6 && numbers[5] == "1111")
-    numbers.pop();
   if (numbers.length == 5) return numbers;
 
   return [];
